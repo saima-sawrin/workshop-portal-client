@@ -1,11 +1,17 @@
 import {configureStore  } from '@reduxjs/toolkit';
-import eventSlice from '../../component/eventSlice';
-import logger from 'redux-logger'
+import { eventApi } from '../../API/EventApi';
+import { adminApi } from '../../API/AdminApi';
+
 const store = configureStore({
     reducer : {
-        event: eventSlice,
+        [eventApi.reducerPath]:eventApi.reducer,
+
+       
     },
-    middleware: (getDefaultMiddleware)=> getDefaultMiddleware().concat(logger),
+    
+    middleware: (getDefaultMiddleware)=> 
+    getDefaultMiddleware().concat(eventApi.middleware),
+
 })
 
 export default store;

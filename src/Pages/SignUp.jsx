@@ -13,30 +13,53 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContext } from '../Context/AuthProvider';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 export default function SignUp() {
-const {createUser  , verifyEmail , signIN} = React.useContext(AuthContext);
-
+const {createUser  , verifyEmail} = React.useContext(AuthContext);
+const { roles, setRole } = React.useState('');
 const navigate = useNavigate();
 const location = useLocation();
-const from = location.state?.from?.pathname || '/signIn';
+const from = location.state?.from?.pathname || '/form';
 
  const[error , setError] = React.useState('');
- const[accepted , setAccepted] = React.useState(false);
-
+ const[accepted , setAccepted] = React.useState("");
+ const users = useLoaderData()
+ const {user , role ,email , password} = users;
 
 
   const handleSubmit = event => {
+
       event.preventDefault();
       const form = event.target;
-      const name = form.name.value;
-
+      const user = form.user.value;
+      const role = form.role.value;
       const email = form.email.value;
       const password = form.password.value;
-      console.log(name, email, password);
+      console.log(user,role, email, password);
+
+      const users = {
+         user: user,
+         role : role,
+         email : email,
+         password : password
+      }
+      fetch('http://localhost:5000/users',{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(users),
+    })
+    .then(res=> res.json())
+    .then(data=> {
+        if(data.acknowledged){
+            alert('successfully added')
+            event.target.reset();
+        }
+    })
      
       createUser(email, password)
       .then( result => {
@@ -57,6 +80,7 @@ const from = location.state?.from?.pathname || '/signIn';
           setError(e.message)
 
       });
+    
       
       
   }
@@ -72,20 +96,13 @@ const from = location.state?.from?.pathname || '/signIn';
      setAccepted(event.target.checked)
  }
 
- 
+
+
   
      
             
          
      
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -103,30 +120,35 @@ const from = location.state?.from?.pathname || '/signIn';
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Register
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="user"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="user"
+                  label="User Name"
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
+             
+              <Grid item xs={12}>
+         
+                {/* <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
+                  id="role"
+                  label="Set your role"
+                  name="role"
+                  autoComplete="role"
+                  
+                /> */}
+              
+         
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -150,11 +172,25 @@ const from = location.state?.from?.pathname || '/signIn';
                 />
               </Grid>
               <Grid item xs={12}>
+              <select className="bg-none"  required
+                  
+                  id="role"
+                  label="Set your role"
+                  name="role"
+                  autoComplete="role"  onChange={setRole}>
+                     <option value="select your role">Select your role</option>
+                 <option value="Admin">Admin</option>
+                 <option value="Expertist">Expertist</option>
+                 <option value="student">Student</option>
+              </select>
+              </Grid>
+              <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox onClick={handleAccepted} value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
+              
             </Grid>
             <Button
               type="submit"
@@ -163,12 +199,12 @@ const from = location.state?.from?.pathname || '/signIn';
               sx={{ mt: 3, mb: 2 }}
               disabled={!accepted}
             >
-              Sign Up
+              Register
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signIn" variant="body2">
-                  Already have an account? Sign in
+                  Already have an account? Login
                 </Link>
               </Grid>
               <Typography variant='red'>{error}</Typography>

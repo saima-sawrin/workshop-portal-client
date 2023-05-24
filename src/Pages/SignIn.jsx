@@ -14,46 +14,41 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContext } from '../Context/AuthProvider';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const theme = createTheme();
-
 export default function SignIn() {
+  const theme = createTheme();
+  
+  
   const {LogIn , signIN} = React.useContext(AuthContext)
+
   const[error , setError] = React.useState('');
- const navigate = useNavigate();
- const location = useLocation();
- const from = location.state?.from?.pathname || '/';
-
- const handleSubmit = event =>{
-  event.preventDefault();
-  const form = event.target;
-  const email = form.email.value;
-  const password = form.password.value;
-  const bkash = form.bkash.value;
-  const course = form.course.value;
-  LogIn(email, password,bkash,course)
-  .then(result => {
-      const user = result.user;
-      console.log(user);
-      form.reset();
-
-      setError('');
-      navigate(from, {replace: true});
-  })
-  .catch(error => {
-     console.error(error)
-     setError(error.message)
-     
- })
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/form';
  
-}
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     bKash: data.get('bKash'),
-  //     password: data.get('password'),
-  //   });
-  // };
+ 
+  const handleSubmit = event =>{
+      event.preventDefault();
+      const form = event.target;
+      const email = form.email.value;
+      const password = form.password.value;
+      LogIn(email, password)
+      .then(result => {
+          const user = result.user;
+          console.log(user);
+          form.reset();
+  
+          setError('');
+          navigate(from, {replace: true});
+      })
+      .catch(error => {
+         console.error(error)
+         setError(error.message)
+         
+     })
+     
+  }
+ 
+  
 
   return (
     <ThemeProvider theme={theme}>
@@ -71,10 +66,10 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Login
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
+            <TextField
               margin="normal"
               required
               fullWidth
@@ -97,29 +92,10 @@ export default function SignIn() {
               autoComplete="current-password"
              
             />
-                <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="bkash"
-              label="bkash Transaction number"
-              name="bkash"
-              autoComplete="bkash"
-              autoFocus
-            />
-                <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="course"
-              label="Course Title"
-              name="course"
-              autoComplete="course"
-              autoFocus
-            />
+          
 
 
-          {/* <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
@@ -129,8 +105,11 @@ export default function SignIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+                Login
+          
+
             </Button>
+
             <Grid container>
               {/* <Grid item xs>
                 <Link href="#" variant="body2">
@@ -139,13 +118,13 @@ export default function SignIn() {
               </Grid> */}
               <Grid item>
                 <Link href="/signUp" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Don't have an account? Register"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        
+
       </Container>
     </ThemeProvider>
   );

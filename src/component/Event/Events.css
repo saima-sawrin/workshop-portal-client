@@ -1,0 +1,13 @@
+.align-center{
+    display:flex;
+   justify-content:center; /* horizontally center */
+   align-items:center;    /* vertically center */
+}
+.inline{
+    display: inline;
+}
+
+.shadow{
+    border-color: black;
+    border: 2  ;
+}
