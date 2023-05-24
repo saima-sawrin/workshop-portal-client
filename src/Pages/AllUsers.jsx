@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 
 
 
-export default function AllExperts() {
+export default function AllUsers() {
     
 const {data ,isError  , isSuccess , isLoading , error} = useGetExpertQuery();
 const activeClass = "text-white bg-indigo border-white";
@@ -24,7 +24,7 @@ console.log(data)
       <TableHead>
       <TableCell ><Typography  fontWeight="bold"
         fontSize="35px"
-        textAlign={'center'}> All Expertise List</Typography></TableCell>
+        textAlign={'center'}> All Users List</Typography></TableCell>
         <TableRow>
           <TableCell >ID</TableCell>
           <TableCell align="right">User Name</TableCell>
@@ -40,11 +40,11 @@ console.log(data)
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell component="th" scope="row">
-              {user?.role === 'Expertist' && user._id}
+              {user._id}
             </TableCell>
-            <TableCell align="right">{user?.role === 'Expertist' && user.user}</TableCell>
-            <TableCell align="right">{user?.role === 'Expertist' && user.email}</TableCell>
-            <TableCell align="right">{user?.role === 'Expertist' &&  user.role}</TableCell>
+            <TableCell align="right">{user.user}</TableCell>
+            <TableCell align="right">{user.email}</TableCell>
+            <TableCell align="right">{user.role}</TableCell>
           </TableRow>
         ))}
       </TableBody>

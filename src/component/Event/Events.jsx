@@ -15,13 +15,7 @@ import { useGetEventQuery } from '../../API/EventApi';
 
 const Events = () => {
   const theme = useTheme();
-  // const dispatch = useDispatch();
-  // const [events , setEvents] = useState([]);
-  // useEffect(() => {
-  //   fetch('http://localhost:5000/events')
-  //   .then(res => res.json())
-  //   .then(data => setEvents(data))
-  // }, [])
+
   const {data ,isError  , isSuccess , isLoading , error} = useGetEventQuery();
   // const events = data?.data;
   // console.log(data);

@@ -40,11 +40,12 @@ export default function SignIn() {
           setError('');
           navigate(from, {replace: true});
       })
-      .catch(error => {
-         console.error(error)
-         setError(error.message)
-         
-     })
+      .catch( e => {
+        alert(e)
+        setError(e.message)
+
+    });
+  
      
   }
  

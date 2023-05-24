@@ -160,7 +160,7 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['addWorkshop', 'AllExpert', 'Attendance'].map((text, index) => (
+          {['addWorkshop','AllUsers', 'AllExpert', 'Attendance'].map((text, index) => (
             <ListItem key={text} >
              <Link to={`/${text}`}>
              <ListItemButton>

@@ -11,6 +11,7 @@ import AllExperts from "../Pages/AllExperts";
 import Attendance from "../Pages/Attendance";
 import PrivateRoute from "./PrivateRoute";
 import Navbar from "../component/Navbar.jsx";
+import AllUsers from "../Pages/AllUsers";
  const router = createBrowserRouter([
     {
        path:'/',
@@ -39,6 +40,10 @@ import Navbar from "../component/Navbar.jsx";
          {
             path:'/AllExpert',
             element: <AllExperts></AllExperts>
+         },
+         {
+            path:'/AllUsers',
+            element: <AllUsers></AllUsers>
          },
          {
             path:'/Attendance',

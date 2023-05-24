@@ -1,17 +1,17 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
-export const adminApi = createApi({
- reducerPath: "adminApi",
+export const expertApi = createApi({
+ reducerPath: "expertApi",
  baseQuery:  fetchBaseQuery({
   baseUrl: "http://localhost:5000"
  }),
  endpoints : (builder) =>({
-    getAdmin : builder.query({
-        query: () =>"/admin",
+    getExpert : builder.query({
+        query: () =>"/users",
     }),
    
  }),
 
 
 });
-export const {useGetAdminQuery} = adminApi;
+export const {useGetExpertQuery} = expertApi;
