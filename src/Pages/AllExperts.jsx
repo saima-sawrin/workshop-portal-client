@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import React from 'react';
 import { useGetExpertQuery } from '../API/ExpertApi';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
@@ -10,7 +9,7 @@ export default function AllExperts() {
     
 const {data ,isError  , isSuccess , isLoading , error} = useGetExpertQuery();
 const activeClass = "text-white bg-indigo border-white";
-console.log(data)
+// console.log(data)
   if (isLoading){
     return <p>Loading...</p>
   }
@@ -40,11 +39,12 @@ console.log(data)
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell component="th" scope="row">
-              {user?.role === 'Expertist' && user._id}
+              {user?.role === 'Expertise' && user._id}
             </TableCell>
-            <TableCell align="right">{user?.role === 'Expertist' && user.user}</TableCell>
-            <TableCell align="right">{user?.role === 'Expertist' && user.email}</TableCell>
-            <TableCell align="right">{user?.role === 'Expertist' &&  user.role}</TableCell>
+            <TableCell align="right">{user?.role === 'Expertise' && user.user}</TableCell>
+            <TableCell align="right">{user?.role === 'Expertise' && user.email}</TableCell>
+            <TableCell align="right">{user?.role === 'Expertise' &&  user.role}</TableCell>
+           
           </TableRow>
         ))}
       </TableBody>

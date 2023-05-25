@@ -3,15 +3,21 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 export const eventApi = createApi({
  reducerPath: "eventApi",
  baseQuery:  fetchBaseQuery({
-  baseUrl: "http://localhost:5000"
+  baseUrl: "https://server-eight-delta.vercel.app"
  }),
  endpoints : (builder) =>({
     getEvent : builder.query({
         query: () =>"/events",
     }),
-   
+    addEvent: builder.mutation({
+        query: (data) =>({
+            url: "/events",
+            method: "POST",
+            body : data,
+        })
+     })
  }),
-
+ 
 
 });
-export const {useGetEventQuery} = eventApi;
+export const {useGetEventQuery , useAddEventMutation} = eventApi;

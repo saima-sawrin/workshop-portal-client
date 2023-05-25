@@ -22,7 +22,7 @@ function App() {
               <Routes>
                 <Route element={<Layout></Layout>}>
                   <Route path='/' element={<Events></Events>}></Route>
-                  <Route path='/events/:id' loader={({ params }) => fetch(`http://localhost:5000/events/${params.id}`)} element={<EventDetails></EventDetails>} ></Route>
+                  <Route path='/events/:id' loader={({ params }) => fetch(`https://server-eight-delta.vercel.app/events/${params.id}`)} element={<EventDetails></EventDetails>} ></Route>
                   <Route path='/signIn' element={<SignIn></SignIn>} ></Route>
                   <Route path='/signUp' element={<SignUp></SignUp>} ></Route>
                 </Route>

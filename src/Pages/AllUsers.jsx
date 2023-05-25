@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useGetExpertQuery } from '../API/ExpertApi';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 
 
@@ -9,13 +9,40 @@ import Paper from '@mui/material/Paper';
 export default function AllUsers() {
     
 const {data ,isError  , isSuccess , isLoading , error} = useGetExpertQuery();
+const [users , setUsers] = React.useState([])
+
 const activeClass = "text-white bg-indigo border-white";
-console.log(data)
+// console.log(data)
   if (isLoading){
     return <p>Loading...</p>
   }
   if (isError){
     return <p>Error...</p>
+  }
+
+
+  const handleDelete = id => {
+    const proceed = window.confirm('Are you sure ,you want to cancel this order')
+    if (proceed) {
+        fetch(`https://server-eight-delta.vercel.app/users/${id}`, {
+            method: 'DELETE',
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.deletedCount > 0) {
+                    alert(' successfully deleted')
+                    const remaining = users.filter(user => user._id !== id)
+                    setUsers(remaining);
+                  
+                }
+            })
+            .catch( e => {
+              alert(e)
+            
+          });
+    }
   }
   
   return (
@@ -30,13 +57,15 @@ console.log(data)
           <TableCell align="right">User Name</TableCell>
           <TableCell align="right">Email</TableCell>
           <TableCell align="right">User Role</TableCell>
+          <TableCell align="right">Delete</TableCell>
      
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.map((user) => (
+        {data.map((user ) => (
           <TableRow
             key={user._id}
+            handleDelete={ handleDelete}
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell component="th" scope="row">
@@ -45,6 +74,7 @@ console.log(data)
             <TableCell align="right">{user.user}</TableCell>
             <TableCell align="right">{user.email}</TableCell>
             <TableCell align="right">{user.role}</TableCell>
+            <TableCell align="right"><Button   onClick={() => handleDelete(user._id)} >Delete</Button></TableCell>
           </TableRow>
         ))}
       </TableBody>

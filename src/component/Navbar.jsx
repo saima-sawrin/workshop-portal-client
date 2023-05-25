@@ -21,7 +21,7 @@ import ListItemText from '@mui/material/ListItemText';
  import { Image } from 'mui-image';
  import FlexBetween from './FlexBetween';
  import { AuthContext } from '../Context/AuthProvider';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 const drawerWidth = 240;
@@ -112,13 +112,13 @@ export default function PersistentDrawerLeft() {
            
          
           
-         <Link to="/">   <Image src={logo} height={35} width={200} /></Link>
+         <Link to="/">   <Image src={logo} height={35} width={200} variant='white'  /></Link>
         </FlexBetween>
      
         <FlexBetween>
          {
           user?.uid?
-          <> <Button  className='text-decoration-none mx-3 text-' variant="primary" onClick={handleLogOut}>Log out</Button></> : 
+          <> <Button  className='text-decoration-none mx-3 ' variant="primary" onClick={handleLogOut}>Log out</Button></> : 
           <> 
           <Link to="/signIn"><Button variant='white'sx={{ color: theme.palette.text.white}} >Login</Button></Link>
           <Link to="/signUp"><Button variant='white'sx={{ color: theme.palette.text.white}} >Register</Button></Link></>
@@ -132,7 +132,7 @@ export default function PersistentDrawerLeft() {
                               src={user.photoURL}>
                           </Image>
                    
-                          : <><i class="fa fa-user" aria-hidden="true"></i></>
+                          : <><i className="fa fa-user" aria-hidden="true"></i></>
                       }
         
          </FlexBetween>

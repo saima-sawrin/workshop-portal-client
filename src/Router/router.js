@@ -24,7 +24,7 @@ import AllUsers from "../Pages/AllUsers";
          },
          {
          path:'/events/:id',
-         loader:({params}) =>fetch(`http://localhost:5000/events/${params.id}`),
+         loader:({params}) =>fetch(`https://server-eight-delta.vercel.app/events/${params.id}`),
          element: <EventDetails></EventDetails>
 
          },
@@ -34,7 +34,7 @@ import AllUsers from "../Pages/AllUsers";
          },
          {
             path:'/addWorkshop',
-            loader:() =>fetch(`http://localhost:5000/events`),
+            loader:() =>fetch(`https://server-eight-delta.vercel.app/events`),
             element: <AddWorkshop></AddWorkshop>
          },
          {
@@ -66,13 +66,13 @@ import AllUsers from "../Pages/AllUsers";
   
     {
        path:'/signUp',
-       loader:()=>fetch(`http://localhost:5000/users`),
+       loader:()=>fetch(`https://server-eight-delta.vercel.app/users`),
          element: <SignUp></SignUp>
        
     },
     {
        path:'/',
-       loader:()=>fetch(`http://localhost:5000/users`),
+       loader:()=>fetch(`https://server-eight-delta.vercel.app/users`),
        element: <Navbar></Navbar>
        
     }

@@ -18,9 +18,9 @@ const AuthProvider = ({children}) => {
     setLoading(true)
     return createUserWithEmailAndPassword(auth , email,password)
    }
-   const LogIn = (bkash,password) =>{
+   const LogIn = (email,password) =>{
     setLoading(true)
-    return signInWithEmailAndPassword(auth, bkash, password)
+    return signInWithEmailAndPassword(auth, email, password)
    }
 
    const profileUpdate = (profile) =>{

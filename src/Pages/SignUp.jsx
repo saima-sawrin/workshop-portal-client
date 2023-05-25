@@ -46,7 +46,7 @@ const from = location.state?.from?.pathname || '/form';
          email : email,
          password : password
       }
-      fetch('http://localhost:5000/users',{
+      fetch('https://server-eight-delta.vercel.app/users',{
         method:'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -95,14 +95,7 @@ const from = location.state?.from?.pathname || '/form';
  const handleAccepted = event => {
      setAccepted(event.target.checked)
  }
-
-
-
-  
-     
-            
-         
-     
+    
 
   return (
     <ThemeProvider theme={theme}>
@@ -180,7 +173,7 @@ const from = location.state?.from?.pathname || '/form';
                   autoComplete="role"  onChange={setRole}>
                      <option value="select your role">Select your role</option>
                  <option value="Admin">Admin</option>
-                 <option value="Expertist">Expertist</option>
+                 <option value="Expertise">Expertise</option>
                  <option value="student">Student</option>
               </select>
               </Grid>

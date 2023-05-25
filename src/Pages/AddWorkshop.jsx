@@ -1,11 +1,14 @@
 import { Box, Button, Container, CssBaseline, Grid, TextField, ThemeProvider, Typography, createTheme } from '@mui/material';
-import React from 'react'
+import React from 'react';
+
 import { Link, useLoaderData } from 'react-router-dom';
+import { useAddEventMutation } from '../API/EventApi';
 
 function AddWorkshop() {
     const theme = createTheme();
     const workshop = useLoaderData();
-    const {Title , Description , Date , Location} = workshop;
+    const {Title , Description , Date , Location , host , aboutHost, course ,overview ,forWhom } = workshop;
+    const [postWorkshop , {isLoading ,isError ,isSuccess}] = useAddEventMutation();
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -14,29 +17,48 @@ function AddWorkshop() {
     const description = form.description.value;
     const Date = form.Date.value;
     const Location = form.Location.value;
+    const host = form.host.value;
+    const aboutHost = form.aboutHost.value;
+    const course = form.course.value;
+    const overview = form.overview.value;
+    const forWhom = form.forWhom.value;
     form.reset();
     const workshop = {
         Title: title,
         Description : description,
         Date : Date,
-        Location : Location
+        Location : Location,
+        host : host,
+        aboutHost: aboutHost,
+        course:  course,
+        overview: overview,
+        forWhom: forWhom
 
     }
-    fetch('http://localhost:5000/events',{
-      method:'POST',
-      headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(workshop),
-  })
-  .then(res=> res.json())
-  .then(data=> {
-      if(data.acknowledged){
-          alert('successfully added')
-          event.target.reset();
-      }
-  })
-   
+  //   fetch('https://server-eight-delta.vercel.app/events',{
+  //     method:'POST',
+  //     headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(workshop),
+  // })
+  // .then(res=> res.json())
+  // .then(data=> {
+  //     if(data.acknowledged){
+  //         alert('successfully added')
+  //         event.target.reset();
+  //     }
+  // })
+   fetch(()=>{
+    if(isLoading){
+      alert("Posting......",{ id: "addWorkshop"});
+    }
+    if(isError){
+      alert("add workshop",{ id: "addWorkshop"});
+      event.target.reset();
+    }
+   })
+  postWorkshop(workshop);
 
   }
     return (
@@ -45,7 +67,7 @@ function AddWorkshop() {
           <CssBaseline />
           <Box
             sx={{
-              marginTop: 8,
+              marginTop: 5,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -95,6 +117,56 @@ function AddWorkshop() {
                 label="Workshop Place"
                 name="Location"
                 autoComplete="Location"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="host"
+                label="Host Name"
+                name="host"
+                autoComplete="host"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="aboutHost"
+                label="About Host"
+                name="aboutHost"
+                autoComplete="aboutHost"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="course"
+                label="course"
+                name="course"
+                autoComplete="course"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="overview"
+                label="overview"
+                name="overview"
+                autoComplete="overview"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="forWhom"
+                label="forWhom"
+                name="forWhom"
+                autoComplete="forWhom"
                 autoFocus
               />
         
